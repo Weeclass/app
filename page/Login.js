@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword} from 'firebase/auth';
 import Logo from "../assets/Logo.jpg";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const Login = ({navigation}) => {
     
@@ -12,16 +14,18 @@ const Login = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const signin = () => {
+    const signin =  () => {
         signInWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
-            // navigation.push('Chat');
-
             if(auth.currentUser.emailVerified){
+                navigation.navigate('BottomNavigation');
                 
-                alert('로그인 성공')
-            
-                navigation.navigate('Main');
+                const setData = async () => {
+                    await AsyncStorage.setItem("id", email);     
+                    await AsyncStorage.setItem("pw",password);     
+                  
+                }
+                setData();
             }
             else{
                 alert("이메일 인증이 되지 않음")
@@ -40,6 +44,8 @@ const Login = ({navigation}) => {
             style={{
                 width:widths,
                 height:heights,
+                paddingBottom: heights * 0.07,
+                backgroundColor:'white'
             }}
             onPress={()=>{
                 Keyboard.dismiss();
@@ -49,23 +55,25 @@ const Login = ({navigation}) => {
             <KeyboardAvoidingView 
 
                 flex={1}
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                behavior={"padding"}
               
                 style={{
                     alignItems: 'center',
                     paddingLeft: widths * 0.075,
                     paddingRight: widths * 0.075,
                     backgroundColor:'white',
-                    justifyContent:'center',
+                    flexDirection:'column',
+                    justifyContent:'flex-end',
+                    
                     
                      }}
             >
                 <Image
                     style={{
-                        width: widths * 0.8,
-                        height: widths * 0.8,
-                        marginBottom : heights * 0.03,
-                        marginTop: heights * -0.1,
+                        width: widths * 0.6,
+                        height: widths * 0.6,
+                        marginBottom : heights * 0.1,
+                    
                     }}
                     source={Logo}
                 />
@@ -84,10 +92,11 @@ const Login = ({navigation}) => {
                             padding: widths * 0.035,
                             borderRadius: 5,
                             fontSize:20,
-                            color: "#555",
+                            color: "black",
                             fontWeight:'bold',
-                            backgroundColor:'#f8f8f8',
+                            backgroundColor:  '#f8fafc',
                         }}
+                        placeholderTextColor="#ddd"
                         placeholder='이메일을 입력하세요'
                         onChangeText={text => setEmail(text)}
                     />
@@ -114,8 +123,9 @@ const Login = ({navigation}) => {
                         fontSize:20,
                         color: "#555",
                         fontWeight:'bold',
-                        backgroundColor:'#f8f8f8',
+                        backgroundColor:  '#f8fafc',
                     }}
+                    placeholderTextColor="#ddd"
                     placeholder='비밀번호를 입력하세요'
                     onChangeText={text => setPassword(text)}
                     secureTextEntry
@@ -157,7 +167,7 @@ const Login = ({navigation}) => {
 
                         <TouchableOpacity 
                             onPress={()=> {
-                                navigation.push("Register")
+                                navigation.push("NameEmail")
                             }}
 
                             style={{
