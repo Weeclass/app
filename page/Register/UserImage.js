@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
-import { View, StyleSheet,TouchableOpacity,Dimensions, Text , Keyboard,KeyboardAvoidingView,TextInput ,Platform,Image} from 'react-native'
+import { View, StyleSheet,TouchableOpacity,Dimensions, Text , Keyboard,KeyboardAvoidingView,TextInput ,Platform,Image,ScrollView} from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { auth } from '../../firebase';
+import { auth,db } from '../../firebase';
+import { collection, addDoc} from 'firebase/firestore';
 import { createUserWithEmailAndPassword, updateProfile,sendEmailVerification } from 'firebase/auth';
-
+import ImageItem from './ImageItem';
 
 
 const UserImage = ({navigation,route}) => {
-    const asset = "../../assets/";
-    const [avatar, setAvatar] = useState('user1.png');
+    const ImageArr = [];
+    for(let i = 10; i <= 21; i++){
+       ImageArr.push(i);
+    }
+    const [School,setSchool] = useState("NULL");
+    const [avatar, setAvatar] = useState('https://firebasestorage.googleapis.com/v0/b/weeclass-453e3.appspot.com/o/user1.png?alt=media&token=881821fb-1ea0-4a38-8b25-d79b2c8b98ce');
     const widths = Dimensions.get("screen").width;
     const heights = Dimensions.get("screen").height;
+
+    const onChangeImage = (img) => {
+        setAvatar(img);  
+    } 
 
     const actionCodeSettings = {
         url: 'https://www.example.com/?email=' + route.params.email,
@@ -30,7 +39,10 @@ const UserImage = ({navigation,route}) => {
       
     const register = async () => {
 
-    
+        if(School == "NULL" || School == ""){
+            alert("학교 이름을 입력해주세요.");
+            return;
+        }
         await createUserWithEmailAndPassword(auth, route.params.email, route.params.password)
         .then((userCredential) => {
             // Registered
@@ -42,6 +54,7 @@ const UserImage = ({navigation,route}) => {
                 photoURL: avatar,
             })
             .then(() => {
+                addDoc(collection(db, 'users'),{email:user.email,name:user.displayName,uid:user.uid,userImage:user.photoURL,school:School,createdAt:new Date(),level:0});
                 alert('회원가입이 완료되었습니다.');
                 navigation.navigate('Login');
             })
@@ -96,7 +109,7 @@ const UserImage = ({navigation,route}) => {
                 style={{
                     alignItems: 'flex-start',
                     padding: widths * 0.08,
-                    paddingTop: Platform.OS == "ios" ?  widths * 0.15 : widths * 0.1 ,
+                    paddingTop: Platform.OS == "ios" ?  widths * 0.12 : widths * 0.1 ,
                     backgroundColor:'white',
                     justifyContent:'flex-start',
                     
@@ -106,7 +119,7 @@ const UserImage = ({navigation,route}) => {
                 <View style={{
                      width: widths - widths * 0.16,
                      display:'flex',
-                     marginBottom: heights * 0.05,
+                     marginBottom: heights * 0.02,
                      flexDirection:'row',
                      alignItems:'center',
                      justifyContent:'space-between',
@@ -131,188 +144,70 @@ const UserImage = ({navigation,route}) => {
                         fontWeight:'bold',
                        
                     }}>
-                        프로필 이미지
+                        학교이름 & 프로필 이미지
                     </Text>
                 </View>
 
                 <View style={{
-                    display:'flex',
-                    flexDirection:'row',
-                    flexWrap:'wrap',
-                    justifyContent:'space-around'
+                     marginBottom: heights * 0.04,
                 }}>
-                    <TouchableOpacity onPress={()=>{
-                        setAvatar("user1.png");
-                    }}
-                    activeOpacity={0.7}
-                    style={{
-                        borderRadius:10,
-                        backgroundColor: avatar == "user1.png" ? '#ffd954' : "transparent",
-                        padding: widths * 0.01,
-                        marginBottom:heights * 0.03
-                    }}
-                    >
-                        <Image source={require(asset+"user1.png")} style={{
-                            width:widths * 0.2,
-                            height:widths * 0.2,
-                    }} />
+                    <Text style={{
+                        fontWeight:'bold',
+                        color:"#ffd954",
+                        fontSize:15,
+                        marginBottom:heights * 0.01
+                    }}>
+                        학교 이름
+                    </Text>
+                    <TextInput
+                        style={{
+                            width: widths * 0.85,
+                            padding: widths * 0.035,
+                            paddingLeft: widths * 0.01,
+                            fontSize:20,
+                            color: "#222",
+                            fontWeight:'bold',
+                            borderColor: 'gold',
+                            borderBottomWidth:2
+                        }}
+                        placeholderTextColor="#ddd"
+                        placeholder='학교이름을 입력하세요'
+                        onChangeText={text => setSchool(text)}
+                    />
+              </View>
 
-                    </TouchableOpacity>
-
-                    <TouchableOpacity  onPress={()=>{
-                        setAvatar("user2.png");
-                    }} 
-                    activeOpacity={0.7}
-                     style={{
-                        borderRadius:10,
-                        backgroundColor: avatar == "user2.png" ? '#ffd954' : "transparent",
-                        padding: widths * 0.01,
-                        marginBottom:heights * 0.03
-                    }}
-                    >
-                        <Image source={require(asset+"user2.png")} style={{
-                            width:widths * 0.2,
-                            height:widths * 0.2,
-                           
-                    }} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity  onPress={()=>{
-                        setAvatar("user3.png");
-                    }}
-                    activeOpacity={0.7}
-                    style={{
-                        borderRadius:10,
-                        backgroundColor: avatar == "user3.png" ? '#ffd954' : "transparent",
-                        padding: widths * 0.01,
-                        marginBottom:heights * 0.03
-                    }}
-                    >
-                        <Image source={require(asset+"user3.png")} style={{
-                            width:widths * 0.2,
-                            height:widths * 0.2,
-                    }} />
-
-                    </TouchableOpacity>
-
-                    <TouchableOpacity  onPress={()=>{
-                        setAvatar("user4.png");
-                    }}
-                    activeOpacity={0.7}
-                    style={{
-                        borderRadius:10,
-                        backgroundColor: avatar == "user4.png" ? '#ffd954' : "transparent",
-                        padding: widths * 0.01,
-                        marginBottom:heights * 0.03
-                       
-                    }}
-                    >
-                        <Image source={require(asset+"user4.png")} style={{
-                            width:widths * 0.2,
-                            height:widths * 0.2,
-                           
-                    }} />
-
-                    </TouchableOpacity>
-
-                    <TouchableOpacity  onPress={()=>{
-                        setAvatar("user5.png");
-                    }}
-                    activeOpacity={0.7}
-                    style={{
-                        borderRadius:10,
-                        backgroundColor: avatar == "user5.png" ? '#ffd954' : "transparent",
-                        padding: widths * 0.01,
-                        marginBottom:heights * 0.03
-                       
-                    }}
-                    >
-                        <Image source={require(asset+"user5.png")} style={{
-                            width:widths * 0.2,
-                            height:widths * 0.2,
-                           
-                    }} />
-                    </TouchableOpacity>
+                <View style={{
+                    width:widths,
+                    marginLeft: widths * -0.08,
+                    padding:widths * 0.08,
+                    paddingBottom:0,
+                    height: heights *0.5,
+                    marginTop: heights * 0.015,
+                    backgroundColor:'#f8fafc'
+                }}>
+                    <ScrollView style={{
                     
-                    <TouchableOpacity  onPress={()=>{
-                        setAvatar("user6.png");
-                    }}
-                    activeOpacity={0.7}
-                    style={{
-                        borderRadius:10,
-                        backgroundColor: avatar == "user6.png" ? '#ffd954' : "transparent",
-                        padding: widths * 0.01,
-                        marginBottom:heights * 0.03
-                       
-                    }}
-                    >
-                        <Image source={require(asset+"user6.png")} style={{
-                            width:widths * 0.2,
-                            height:widths * 0.2,
-                           
-                    }} />
-
-                    </TouchableOpacity>
-
-                    <TouchableOpacity  onPress={()=>{
-                        setAvatar("user7.png");
-                    }}
-                    activeOpacity={0.7}
-                    style={{
-                        borderRadius:10,
-                        backgroundColor: avatar == "user7.png" ? '#ffd954' : "transparent",
-                        padding: widths * 0.01,
-                        marginBottom:heights * 0.03
-                       
-                    }}
-                    >
-                        <Image source={require(asset+"user7.png")} style={{
-                            width:widths * 0.2,
-                            height:widths * 0.2,
-                           
-                    }} />
-
-                    </TouchableOpacity>
-
-                    <TouchableOpacity  onPress={()=>{
-                        setAvatar("user8.png");
-                    }}
-                    activeOpacity={0.7}
-                    style={{
-                        borderRadius:10,
-                        backgroundColor: avatar == "user8.png" ? '#ffd954' : "transparent",
-                        padding: widths * 0.01,
-                        marginBottom:heights * 0.03
-                       
-                    }}
-                    >
-                        <Image source={require(asset+"user8.png")} style={{
-                            width:widths * 0.2,
-                            height:widths * 0.2,
-                           
-                    }} />
-
-                    </TouchableOpacity>
-
-                    <TouchableOpacity  onPress={()=>{
-                        setAvatar("user9.png");
-                    }}
-                    activeOpacity={0.7}
-                    style={{
-                        borderRadius:10,
-                        backgroundColor: avatar == "user9.png" ? '#ffd954' : "transparent",
-                        padding: widths * 0.01,
-                        marginBottom:heights * 0.03
-                       
-                    }}
-                    >
-                        <Image source={require(asset+"user9.png")} style={{
-                            width:widths * 0.2,
-                            height:widths * 0.2,
-                           
-                    }} />
-
-                    </TouchableOpacity>
+                    }}>
+                        <View style={{
+                            display:'flex',
+                            flexDirection:'row',
+                            flexWrap:'wrap',
+                            justifyContent:'space-between',
+                    
+                            }}
+                        >
+                        {
+                            ImageArr.map((item) => {
+                            return(
+                                <ImageItem img={item} avatar={avatar} onChangeImage={onChangeImage}/>
+                            )
+                            })
+                        }
+                        </View>
+                            
+                    
+                    
+                    </ScrollView>
                 </View>
 
         
@@ -354,6 +249,11 @@ const UserImage = ({navigation,route}) => {
      </TouchableOpacity>
     )
 }
+
+
+
+
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

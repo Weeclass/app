@@ -82,9 +82,7 @@ const Password = ({navigation,route}) => {
                 </View>
            
 
-            <View style={{
-                marginTop:heights * 0.03
-            }}>
+            <View>
                 <Text style={{
                     fontWeight:'bold',
                     color:"#ffd954",
@@ -96,13 +94,14 @@ const Password = ({navigation,route}) => {
                 <TextInput
                     
                     style={{
-                        width:widths - widths * 0.16,
+                        width: widths * 0.85,
                         padding: widths * 0.035,
-                        borderRadius: 5,
-                        fontSize:widths * 0.05,
-                        color: "#555",
+                        paddingLeft: widths * 0.01,
+                        fontSize:20,
+                        color: "#222",
                         fontWeight:'bold',
-                    backgroundColor:'#f8fafc',
+                        borderColor: 'gold',
+                        borderBottomWidth:2
                     }}
                     placeholderTextColor="#ddd"
                     placeholder='6자리 이상으로 입력해주세요.'
@@ -126,13 +125,14 @@ const Password = ({navigation,route}) => {
             <TextInput
                 
                 style={{
-                    width:widths - widths * 0.16,
+                    width: widths * 0.85,
                     padding: widths * 0.035,
-                    borderRadius: 5,
-                    fontSize:widths * 0.05,
-                    color: "#555",
+                    paddingLeft: widths * 0.01,
+                    fontSize:20,
+                    color: "#222",
                     fontWeight:'bold',
-                   backgroundColor:'#f8fafc',
+                    borderColor: 'gold',
+                    borderBottomWidth:2
                 }}
                 placeholderTextColor="#ddd"
                 placeholder='비밀번호를 다시 입력해주세요.  '

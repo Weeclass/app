@@ -70,9 +70,7 @@ const NameEmail = ({navigation}) => {
                         이름 & 이메일
                     </Text>
                 </View>
-                <View style={{
-                marginTop:heights * 0.03,
-                }}>
+                <View>
                 <Text style={{
                     fontWeight:'bold',
                     color:"#ffd954",
@@ -84,13 +82,14 @@ const NameEmail = ({navigation}) => {
                 <TextInput
                     
                     style={{
-                        width:widths - widths * 0.16,
+                        width: widths * 0.85,
                         padding: widths * 0.035,
-                        borderRadius: 5,
-                        fontSize:widths * 0.05,
-                        color: "#555",
+                        paddingLeft: widths * 0.01,
+                        fontSize:20,
+                        color: "#222",
                         fontWeight:'bold',
-                        backgroundColor:'#f8fafc',
+                        borderColor: 'gold',
+                        borderBottomWidth:2
                     }}
                     placeholderTextColor="#ddd"
                     placeholder='본인의 이름이나 별명을 입력하세요'
@@ -117,13 +116,14 @@ const NameEmail = ({navigation}) => {
                 </Text>
                 <TextInput
                         style={{
-                            width:widths - widths * 0.16,
+                            width: widths * 0.85,
                             padding: widths * 0.035,
-                            borderRadius: 5,
-                            fontSize:widths * 0.05,
-                            color: "#555",
+                            paddingLeft: widths * 0.01,
+                            fontSize:20,
+                            color: "#222",
                             fontWeight:'bold',
-                        backgroundColor:'#f8fafc',
+                            borderColor: 'gold',
+                            borderBottomWidth:2
                         }}
                         placeholderTextColor="#ddd"
                         placeholder='이메일 형식에 맞게 입력해주세요.'

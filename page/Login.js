@@ -3,6 +3,7 @@ import { View, StyleSheet,TouchableOpacity ,Text, Dimensions,Image,Keyboard,Keyb
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword} from 'firebase/auth';
+
 import Logo from "../assets/Logo.jpg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -21,6 +22,7 @@ const Login = ({navigation}) => {
                 navigation.navigate('BottomNavigation');
                 
                 const setData = async () => {
+                
                     await AsyncStorage.setItem("id", email);     
                     await AsyncStorage.setItem("pw",password);     
                   
@@ -90,11 +92,12 @@ const Login = ({navigation}) => {
                         style={{
                             width: widths * 0.85,
                             padding: widths * 0.035,
-                            borderRadius: 5,
+                            paddingLeft: widths * 0.01,
                             fontSize:20,
-                            color: "black",
+                            color: "#222",
                             fontWeight:'bold',
-                            backgroundColor:  '#f8fafc',
+                            borderColor: 'gold',
+                            borderBottomWidth:2
                         }}
                         placeholderTextColor="#ddd"
                         placeholder='이메일을 입력하세요'
@@ -118,12 +121,13 @@ const Login = ({navigation}) => {
                     
                     style={{
                         width: widths * 0.85,
-                        padding: widths * 0.035,
-                        borderRadius: 5,
-                        fontSize:20,
-                        color: "#555",
-                        fontWeight:'bold',
-                        backgroundColor:  '#f8fafc',
+                            padding: widths * 0.035,
+                            paddingLeft: widths * 0.01,
+                            fontSize:20,
+                            color: "#222",
+                            fontWeight:'bold',
+                            borderColor: 'gold',
+                            borderBottomWidth:2
                     }}
                     placeholderTextColor="#ddd"
                     placeholder='비밀번호를 입력하세요'

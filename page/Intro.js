@@ -33,9 +33,7 @@ export default function App({navigation}){
                  
                 })
                 .catch((error) => {
-                  const errorCode = error.code;
-                  const errorMessage = error.message;
-                  alert(errorMessage);
+                    navigation.navigate('Login');
                 });
                 
                 
