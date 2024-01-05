@@ -16,12 +16,16 @@ import React, { useEffect, useState, useRef } from "react";
 import mainImage from "../../assets/mainImage2.png";
 import banner from "../../assets/banner.jpg";
 import back from "../../assets/back.png";
+import diary from "../../assets/diary.png";
+import cons from "../../assets/cons.png";
+import pencil from "../../assets/pencil.png";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { BackgroundImage } from "react-native-elements/dist/config";
 import ReservationState from "../reservation/ReservationState";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 
+import { LinearGradient } from "expo-linear-gradient";
 const Main = ({ navigation }) => {
   const widths = Dimensions.get("screen").width;
   const heights = Dimensions.get("screen").height;
@@ -32,7 +36,7 @@ const Main = ({ navigation }) => {
   const schoolData = async () => {
     school.current = await AsyncStorage.getItem("School");
   };
-
+  const [count, setCount] = useState(0);
   useEffect(() => schoolData, []);
 
   const panResponder = React.useRef(
@@ -201,7 +205,7 @@ const Main = ({ navigation }) => {
           height: (heights - heights * 0.6) * 0.35,
           borderRadius: widths * 0.03,
           marginTop: heights * 0.02,
-          marginBottom: heights * 0.04,
+          marginBottom: heights * 0.03,
           backgroundColor: "#eee",
           borderWidth: 2,
           borderColor: "#f8fafc",
@@ -232,186 +236,223 @@ const Main = ({ navigation }) => {
           }}
         >
           <ScrollView horizontal={true} style={{}}>
-            <View
+            <LinearGradient
+              colors={["#52aa5e", "#a5be00"]}
               style={{
-                height: heights * 0.3,
-                backgroundColor: "white",
-                borderRadius: heights * 0.02,
-                flexDirection: "row",
-                marginRight: widths * 0.1,
-                overflow: "hidden",
+                height: widths * 0.55,
+                backgroundColor: "#6a994e",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                borderRadius: 10,
+                marginRight: widths * 0.09,
+                borderWidth: 1,
+                borderColor: "#ddd",
               }}
             >
-              <Image
-                source={banner}
+              <Text
                 style={{
-                  width: heights * 0.21,
-                  height: heights * 0.3,
-                }}
-              />
-
-              <View
-                style={{
-                  width: heights * 0.21,
-                  height: heights * 0.3,
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  color: "white",
+                  fontSize: 18,
+                  fontFamily: "Pretendard-Bold",
                 }}
               >
-                <Image
-                  source={{ uri: auth.currentUser.photoURL }}
-                  style={{
-                    width: widths * 0.17,
-                    height: widths * 0.17,
-                    backgroundColor: "#eee",
-                    borderRadius: widths,
-                  }}
-                />
+                EVENT
+              </Text>
+              <Image
+                source={{
+                  uri: "https://firebasestorage.googleapis.com/v0/b/weeclass-453e3.appspot.com/o/images%2Fbanner1.jpg?alt=media&token=518eff02-97a6-41a2-98aa-0235c0565b78",
+                }}
+                style={{
+                  marginTop: 15,
+                  width: widths * 0.4,
+                  height: widths * 0.4,
+                  borderRadius: 10,
+                }}
+              />
+            </LinearGradient>
 
-                <Text
-                  style={{
-                    fontFamily: "Pretendard-Bold",
-                    fontSize: widths * 0.04,
-                    marginTop: heights * 0.02,
-                    marginBottom: heights * 0.02,
-                  }}
-                >
-                  이규빈 선생님
-                </Text>
-
-                <TouchableOpacity
-                  onPress={() => {
-                    alert("상세보기");
-                  }}
-                  style={{
-                    backgroundColor: "#6A994E",
-                    borderRadius: widths,
-                    padding: widths * 0.035,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: widths * 0.035,
-                      fontFamily: "Pretendard-Bold",
-                    }}
-                  >
-                    상세보기
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View
+            <LinearGradient
+              colors={["#52aa5e", "#a5be00"]}
               style={{
-                height: heights * 0.3,
-                backgroundColor: "white",
-                borderRadius: heights * 0.005,
-                flexDirection: "row",
-                overflow: "hidden",
+                height: widths * 0.55,
+                backgroundColor: "#6a994e",
+                justifyContent: "flex-end",
+                borderRadius: 10,
+                alignItems: "center",
+                borderWidth: 1,
+                borderColor: "#ddd",
               }}
             >
-              <Image
-                source={banner}
+              <Text
                 style={{
-                  width: heights * 0.21,
-                  height: heights * 0.3,
-                }}
-              />
-
-              <View
-                style={{
-                  width: heights * 0.21,
-                  height: heights * 0.3,
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  color: "white",
+                  fontSize: 18,
+                  fontFamily: "Pretendard-Bold",
                 }}
               >
-                <Image
-                  source={{ uri: auth.currentUser.photoURL }}
-                  style={{
-                    width: widths * 0.17,
-                    height: widths * 0.17,
-                    backgroundColor: "#eee",
-                    borderRadius: widths,
-                  }}
-                />
-
-                <Text
-                  style={{
-                    fontFamily: "Pretendard-Bold",
-                    fontSize: widths * 0.04,
-                    marginTop: heights * 0.02,
-                    marginBottom: heights * 0.02,
-                  }}
-                >
-                  이규빈 선생님
-                </Text>
-
-                <TouchableOpacity
-                  onPress={() => {
-                    alert("상세보기");
-                  }}
-                  style={{
-                    backgroundColor: "#6A994E",
-                    borderRadius: widths,
-                    padding: widths * 0.035,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: widths * 0.035,
-                      fontFamily: "Pretendard-Bold",
-                    }}
-                  >
-                    상세보기
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+                EVENT
+              </Text>
+              <Image
+                source={{
+                  uri: "https://firebasestorage.googleapis.com/v0/b/weeclass-453e3.appspot.com/o/images%2Fbanner2.jpg?alt=media&token=2098325b-7bba-45d5-8152-25de9ffe3a93",
+                }}
+                style={{
+                  marginTop: 15,
+                  width: widths * 0.4,
+                  height: widths * 0.4,
+                  borderRadius: 10,
+                }}
+              />
+            </LinearGradient>
           </ScrollView>
         </View>
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.push("PostDesc");
-        }}
+
+      <LinearGradient
+        colors={["#52aa5e", "#a5be00"]}
         style={{
-          width: "auto",
-          height: "auto",
-          backgroundColor: "red",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#6a994e",
-          borderRadius: widths,
-          position: "absolute",
-          right: widths * 0.05,
-          bottom: widths * 0.05,
-          shadowColor: "gray",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.5,
-          shadowRadius: 3.84,
-          elevation: 5,
           flexDirection: "row",
-          padding: widths * 0.05,
+          justifyContent: "space-between",
+          backgroundColor: "#6a994e",
+          paddingLeft: widths * 0.03,
+          paddingRight: widths * 0.03,
+          borderRadius: widths * 0.05,
+          paddingTop: widths * 0.01,
+          paddingBottom: widths * 0.01,
         }}
       >
-        <Text
-          style={{
-            fontSize: widths * 0.045,
-            fontFamily: "Pretendard-Regular",
-            color: "white",
+        <TouchableOpacity
+          onPress={() => {
+            navigation.push("PostDesc");
           }}
         >
-          작성하기
-        </Text>
-      </TouchableOpacity>
+          <LinearGradient
+            colors={["#52aa5e", "#a5be00"]}
+            style={{
+              width: widths * 0.25,
+              height: widths * 0.25,
+              backgroundColor: "#a7c957",
+              borderRadius: widths,
+              alignItems: "center",
+
+              justifyContent: "space-evenly",
+              flexDirection: "row",
+            }}
+          >
+            <View
+              style={{
+                alignItems: "center",
+              }}
+            >
+              <Image
+                source={pencil}
+                style={{
+                  width: widths * 0.06,
+                  height: widths * 0.06,
+                  marginBottom: 8,
+                }}
+              />
+              <Text
+                style={{
+                  color: "white",
+                  fontFamily: "Pretendard-Bold",
+                }}
+              >
+                글 작성
+              </Text>
+            </View>
+          </LinearGradient>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.push("Diary");
+          }}
+        >
+          <LinearGradient
+            colors={["#52aa5e", "#a5be00"]}
+            style={{
+              width: widths * 0.25,
+              height: widths * 0.25,
+              backgroundColor: "#a7c957",
+              borderRadius: widths,
+              alignItems: "center",
+
+              borderColor: "#ddd",
+              justifyContent: "space-evenly",
+              flexDirection: "row",
+            }}
+          >
+            <View
+              style={{
+                alignItems: "center",
+              }}
+            >
+              <Image
+                source={diary}
+                style={{
+                  width: widths * 0.06,
+                  height: widths * 0.06,
+                  marginBottom: 8,
+                }}
+              />
+              <Text
+                style={{
+                  color: "white",
+                  fontFamily: "Pretendard-Bold",
+                }}
+              >
+                다이어리
+              </Text>
+            </View>
+          </LinearGradient>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.push("History");
+          }}
+        >
+          <LinearGradient
+            colors={["#52aa5e", "#a5be00"]}
+            style={{
+              width: widths * 0.25,
+              height: widths * 0.25,
+              backgroundColor: "#a7c957",
+              borderRadius: widths,
+              alignItems: "center",
+
+              borderColor: "#ddd",
+              justifyContent: "space-evenly",
+              flexDirection: "row",
+            }}
+          >
+            <View
+              style={{
+                alignItems: "center",
+              }}
+            >
+              <Image
+                source={cons}
+                style={{
+                  width: widths * 0.06,
+                  height: widths * 0.06,
+                  marginBottom: 8,
+                }}
+              />
+              <Text
+                style={{
+                  color: "white",
+                  fontFamily: "Pretendard-Bold",
+                }}
+              >
+                상담내역
+              </Text>
+            </View>
+          </LinearGradient>
+        </TouchableOpacity>
+      </LinearGradient>
+
       <Animated.View
         {...panResponder.panHandlers}
         style={{

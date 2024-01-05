@@ -284,9 +284,114 @@ const MyPage = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
+      {auth.currentUser.email == "gyubin0605@naver.com" ||
+      auth.currentUser.email == "chanbin5634@gmail.com" ? (
+        <View>
+          <Text
+            style={{
+              marginTop: heights * 0.04,
+              fontFamily: "Pretendard-Bold",
+              fontSize: widths * 0.07,
+              marginRight: "auto",
+              marginLeft: widths * 0.05,
+            }}
+          >
+            관리자
+          </Text>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => {
+              navigation.navigate("SangdamList");
+            }}
+            style={{
+              marginTop: 10,
+              backgroundColor: "#f8fafc",
+              borderRadius: 10,
+            }}
+          >
+            <View
+              style={{
+                width: widths * 0.9,
+                padding: widths * 0.04,
+                paddingRight: widths * 0.06,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="checkmark"
+                  style={{ color: "#272727", marginRight: widths * 0.04 }}
+                  size={widths * 0.07}
+                />
+                <Text
+                  style={{
+                    color: "#272727",
+                    fontSize: widths * 0.045,
+                    fontFamily: "Pretendard-Regular",
+                  }}
+                >
+                  상담요청
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => {
+              navigation.navigate("EventCreate");
+            }}
+            style={{
+              marginTop: 10,
+              backgroundColor: "#f8fafc",
+              borderRadius: 10,
+            }}
+          >
+            <View
+              style={{
+                width: widths * 0.9,
+                padding: widths * 0.04,
+                paddingRight: widths * 0.06,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="add"
+                  style={{ color: "#272727", marginRight: widths * 0.04 }}
+                  size={widths * 0.07}
+                />
+                <Text
+                  style={{
+                    color: "#272727",
+                    fontSize: widths * 0.045,
+                    fontFamily: "Pretendard-Regular",
+                  }}
+                >
+                  이벤트 작성
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </View>
+      ) : null}
+
       <Text
         style={{
-          marginTop: heights * 0.04,
+          marginTop: 20,
           fontFamily: "Pretendard-Bold",
           fontSize: widths * 0.07,
           marginRight: "auto",

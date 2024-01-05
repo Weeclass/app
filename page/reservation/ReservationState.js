@@ -1,5 +1,5 @@
 import { View, Text, Dimensions, TouchableOpacity } from "react-native";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import { auth, db } from "../../firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -9,12 +9,19 @@ const ReservationState = ({ text, state, school }) => {
   const [used, setUsed] = useState("");
 
   const addPost = async () => {
-    addDoc(collection(db, "Reservation"), {
+    const docRef = await addDoc(collection(db, "Reservation"), {
+      id: "",
       userName: auth.currentUser.displayName,
       userEmail: auth.currentUser.email,
       class: text,
       date: new Date().getTime(),
       state: 0,
+      teacherName: "",
+      sign: "",
+    });
+
+    await updateDoc(doc(db, "Reservation", docRef.id), {
+      id: docRef.id,
     });
 
     alert("신청완료");

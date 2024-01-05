@@ -1,5 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Text, View, Dimensions, ScrollView, Image } from "react-native";
+import {
+  Text,
+  View,
+  Dimensions,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { auth, db } from "../../firebase";
 import {
   collection,
@@ -15,7 +22,7 @@ import {
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 
-const Community = () => {
+const Community = ({ navigation }) => {
   const widths = Dimensions.get("screen").width;
   const heights = Dimensions.get("screen").height;
   const [data, setData] = useState([]);
@@ -76,96 +83,69 @@ const Community = () => {
                 style={{
                   width: widths,
                   position: "relative",
-                  borderBottomWidth: 1,
-                  borderColor: "#ddd",
+                  backgroundColor: idx % 2 == 0 ? "white" : "#f8fafc",
                   padding: widths * 0.06,
+                  paddingTop: widths * 0.05,
+                  paddingBottom: widths * 0.05,
                 }}
               >
                 <View
                   style={{
-                    width: widths,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
+                    padding: widths * 0.03,
                   }}
                 >
-                  <Image
-                    source={{ uri: it.userImage }}
-                    style={{
-                      width: widths * 0.15,
-                      height: widths * 0.15,
-                      marginRight: widths * 0.02,
-                    }}
-                  />
-                  <Text
-                    style={{
-                      fontFamily: "Pretendard-Bold",
-                      fontSize: widths * 0.045,
-                      color: "#555",
-                    }}
-                  >
-                    {it.userName}
-                  </Text>
-                </View>
-
-                <View
-                  style={{
-                    padding: widths * 0.02,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#555",
-                      fontSize: widths * 0.05,
-                      fontFamily: "Pretendard-Bold",
-                      marginTop: widths * 0.03,
-                    }}
-                  >
-                    {it.title}
-                  </Text>
-                  <Text
-                    style={{
-                      marginTop: widths * 0.04,
-                      marginBottom: widths * 0.03,
-                      color: "gray",
-                      fontSize: widths * 0.035,
-                      fontFamily: "Pretendard-Regular",
-                      backgroundColor: "#f8fafc",
-                      padding: widths * 0.025,
-                    }}
-                  >
-                    {it.desc}
-                  </Text>
                   <View
                     style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#555",
+                        fontSize: widths * 0.05,
+                        fontFamily: "Pretendard-Bold",
+                        marginTop: widths * 0.01,
+                      }}
+                    >
+                      {it.title}
+                    </Text>
+
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.push("Coment", { data: it });
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: widths * 0.045,
+                          textDecorationLine: "underline",
+                        }}
+                      >
+                        댓글
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View
+                    style={{
+                      marginTop: 25,
                       flexDirection: "row",
                       alignItems: "flex-end",
                       justifyContent: "space-between",
                     }}
                   >
-                    <View
+                    <Text
                       style={{
-                        flexDirection: "row",
-                        marginTop: widths * 0.02,
+                        padding: widths * 0.005,
+                        color: "gray",
+                        fontSize: widths * 0.035,
+                        fontFamily: "Pretendard-Regular",
                       }}
                     >
-                      <Ionicons
-                        name={it.check == false ? "heart-outline" : "heart"}
-                        size={widths * 0.09}
-                        style={{
-                          color: it.check == false ? "gray" : "coral",
-                          marginRight: widths * 0.01,
-                        }}
-                        onPress={() => {}}
-                      />
-                      <Ionicons
-                        name="chatbubble-outline"
-                        size={widths * 0.08}
-                        style={{
-                          color: "#555",
-                        }}
-                      />
-                    </View>
+                      {it.desc}
+                    </Text>
                     <Text
                       style={{
                         fontFamily: "Pretendard-Regular",

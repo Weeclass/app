@@ -16,7 +16,7 @@ const PostDetail = ({ navigation, route }) => {
   return (
     <View
       style={{
-        paddingTop: heights * 0.07,
+        paddingTop: heights * 0.05,
         flex: 1,
         backgroundColor: "white",
         padding: widths * 0.05,
@@ -28,45 +28,20 @@ const PostDetail = ({ navigation, route }) => {
           alignItems: "center",
           marginBottom: heights * 0.025,
         }}
-      >
-        <Image
-          source={{ uri: routerData.userImage }}
-          width={widths * 0.15}
-          height={widths * 0.15}
-          style={{
-            marginRight: widths * 0.02,
-          }}
-        />
-
-        <Text
-          style={{
-            fontFamily: "Pretendard-Bold",
-            fontSize: widths * 0.07,
-          }}
-        >
-          {routerData.userName}
-        </Text>
-      </View>
+      ></View>
 
       <ScrollView style={{}}>
-        <View
+        <Text
           style={{
-            borderRadius: 10,
-            backgroundColor: "#f8fafc",
+            width: widths * 0.9,
+            color: "#272727",
+            fontSize: widths * 0.06,
+            padding: widths * 0.02,
             marginBottom: 10,
           }}
         >
-          <Text
-            style={{
-              width: widths * 0.9,
-              color: "gray",
-              fontSize: widths * 0.045,
-              padding: widths * 0.05,
-            }}
-          >
-            {routerData.title}
-          </Text>
-        </View>
+          {routerData.title}
+        </Text>
 
         <View
           style={{

@@ -11,7 +11,7 @@ import {
   TextInput,
 } from "react-native";
 import tree1 from "../../../assets/tree1.png";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { useState } from "react";
 import { auth, db } from "../../../firebase";
 
@@ -32,10 +32,11 @@ const PostDesc = ({ navigation }) => {
       hearts: 0,
     });
 
-    addDoc(collection, (db, "hearts"), {
-      id: docRef.id,
-      count: 0,
+    await updateDoc(doc(db, "PostDesc", docRef.id), {
+      // teacherName
+      code: docRef.id,
     });
+    console.log(docRef.id);
     alert("작성완료");
     navigation.pop();
   };

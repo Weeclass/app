@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "icon": "./assets/yoga.png",
+    "extra": {
+      "eas": {
+        "projectId": "35821e72-effc-499e-a991-ef5080b36dc6"
+      }
+    },
+    "android": {
+      "package": "com.chanbin.weeclass"
+    },
+    "ios": {
+      "bundleIdentifier": "com.chanbin.weeclass"
+    }
+  }
+}

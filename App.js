@@ -17,6 +17,11 @@ import Diary from "./page/Login_ok/MyPageSub/Diary";
 import PostDesc from "./page/Login_ok/MyPageSub/PostDesc";
 import PostDetail from "./page/Login_ok/MyPageSub/PostDetail";
 import History from "./page/Login_ok/MyPageSub/History";
+import HistoryDetail from "./page/Login_ok/MyPageSub/HistoryDetail";
+import SangdamList from "./page/Login_ok/MyPageSub/sangdamList";
+import SangdamOkNo from "./page/Login_ok/MyPageSub/sangdamOkNo";
+import EventCreate from "./page/Login_ok/MyPageSub/eventCreate";
+import Coment from "./page/Login_ok/Coment";
 
 const Stack = createStackNavigator();
 
@@ -51,6 +56,11 @@ const App = () => {
           <Stack.Screen name="PostDesc" component={PostDesc} />
           <Stack.Screen name="PostDetail" component={PostDetail} />
           <Stack.Screen name="History" component={History} />
+          <Stack.Screen name="HistoryDetail" component={HistoryDetail} />
+          <Stack.Screen name="SangdamList" component={SangdamList} />
+          <Stack.Screen name="SangdamOkNo" component={SangdamOkNo} />
+          <Stack.Screen name="EventCreate" component={EventCreate} />
+          <Stack.Screen name="Coment" component={Coment} />
         </Stack.Navigator>
       </NavigationContainer>
     );

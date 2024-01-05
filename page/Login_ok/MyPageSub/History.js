@@ -103,7 +103,7 @@ const History = ({ navigation }) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  navigation.push("PostDetail", { data: it });
+                  navigation.push("HistoryDetail", { data: it });
                 }}
                 activeOpacity={0.8}
                 style={{
@@ -164,9 +164,10 @@ const History = ({ navigation }) => {
                   >
                     <Text
                       style={{
-                        fontFamily: "Pretendard-Regular",
+                        fontFamily: "Pretendard-Bold",
                         fontSize: widths * 0.045,
-                        color: "#555",
+                        color: "#777",
+                        marginRight: 5,
                       }}
                     >
                       {it.class}
@@ -175,9 +176,9 @@ const History = ({ navigation }) => {
                     <Text
                       style={{
                         fontFamily: "Pretendard-Regular",
-                        fontSize: widths * 0.045,
+                        fontSize: widths * 0.03,
                         color: "#555",
-                        margin: "auto",
+                        marginTop: "auto",
                       }}
                     >
                       {new Date(it.date).toISOString().slice(0, 10)}
@@ -192,7 +193,9 @@ const History = ({ navigation }) => {
                           ? "gray"
                           : it.state == 1
                           ? "yellowgreen"
-                          : "coral",
+                          : it.state == 2
+                          ? "coral"
+                          : "black",
                       fontSize: widths * 0.045,
                     }}
                   >
@@ -200,7 +203,9 @@ const History = ({ navigation }) => {
                       ? "확인중"
                       : it.state == 1
                       ? "수락됨"
-                      : "거부됨"}
+                      : it.state == 2
+                      ? "거부됨"
+                      : "확인완료"}
                   </Text>
                 </View>
               </TouchableOpacity>

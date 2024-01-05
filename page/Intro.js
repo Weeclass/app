@@ -16,7 +16,6 @@ export default function App({ navigation }) {
     try {
       id = await AsyncStorage.getItem("id");
       pw = await AsyncStorage.getItem("pw");
-
       if (id != null) {
         signInWithEmailAndPassword(auth, id, pw)
           .then((userCredential) => {
